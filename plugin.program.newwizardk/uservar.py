@@ -23,7 +23,7 @@ BUILDFILE      = 'https://pastebin.com/raw/pMcCz3WS'
 # 0 being every startup of kodi
 UPDATECHECK    = 0
 # Text File with apk info in it.  Leave as 'http://' to ignore
-APKFILE        = 'https://'
+APKFILE        = 'https://github.com/KWIZARDK/kwizardk.github.io/blob/master/apks.txt'
 # Text File with Youtube Videos urls.  Leave as 'http://' to ignore
 YOUTUBETITLE   = ''
 YOUTUBEFILE    = ''
