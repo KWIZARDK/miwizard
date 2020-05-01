@@ -41,19 +41,19 @@ if __name__ == "__main__":  standalone = True
 else: standalone = False
 
 # this 'if' block adds support for the repo aggregator script
-# set the repository's root folder here, if the script user has not set a custom path.      
+# set the repository's root folder here, if the script user has not set a custom path.
 if standalone:
             if repo_root == False: repo_root = os.getcwd()
             print script_name + '  v' + str(revision_number)
             print script_credits
             print 'Homepage and updates: ' + homepage
             print ' '
-            
+
 else:
             #so that we can import stuff from parent dir (settings)
             import sys
             sys.path.append('..')
-            
+
             import settings
             repo_root = settings.aggregate_repo_path
             # use repository aggregator settings.py to determine whether to compress
@@ -68,7 +68,7 @@ def is_addon_dir( addon ):
     if not os.path.isdir( addon ) or addon == ".svn": return False
     else: return True
 
-                    
+
 class Generator:
     """
         Generates a new addons.xml file from each addons addon.xml file
@@ -76,7 +76,7 @@ class Generator:
         the checked-out repo. Only handles single depth folder structure.
     """
     def __init__( self ):
-    
+
         #paths
         self.addons_xml = os.path.join( repo_root, "addons.xml" )
         self.addons_xml_md5 = os.path.join( repo_root, "addons.xml.md5" )
@@ -92,7 +92,7 @@ class Generator:
         addons_xml = u"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<addons>\n"
 
         found_an_addon = False
-      
+
         # loop thru and add each addons addon.xml file
         for addon in addons:
             try:
@@ -132,12 +132,12 @@ class Generator:
                     # save files
                     self._save_file( addons_xml.encode( "UTF-8" ), self.addons_xml )
                     self._generate_md5_file()
-       
+
                     # notify user
                     print "Updated addons xml and addons.xml.md5 files"
         else: print "Could not find any addons, so script has done nothing."
 
-        
+
 
 
     def _generate_md5_file( self ):
@@ -154,7 +154,7 @@ class Generator:
 
     def _save_file( self, data, the_path ):
         try:
-            
+
             # write data to the file
             open( the_path, "w" ).write( data )
 
@@ -186,10 +186,10 @@ class Compressor:
                # set variables
                self.addon_name = str(addon)
                self.addon_path = os.path.join( repo_root, addon )
-               
+
                # skip any file or .svn folder.
                if is_addon_dir( self.addon_path ):
-                                  
+
                        # set another variable
                        self.addon_folder_contents = os.listdir( self.addon_path )
 
@@ -222,25 +222,25 @@ class Compressor:
        # if loop is not broken by returning the addon path, zip was not found so return False
        self.addon_zip_path = None
        return False
-    
+
    def _extract_addon_xml_to_release_folder():
            the_zip = zipfile.ZipFile( self.addon_zip_path, 'r' )
            for filename in the_zip.namelist():
                         if filename.find('addon.xml'):
                                 the_zip.extract( filename, self.addon_path )
                                 break
-                        
+
    def _recursive_zipper( self, dir, zip_file ):
             #initialize zipping module
             zip = zipfile.ZipFile( zip_file, 'w', compression=zipfile.ZIP_DEFLATED )
 
-            # get length of characters of what we will use as the root path       
+            # get length of characters of what we will use as the root path
             root_len = len( os.path.dirname(os.path.abspath(dir))   )
 
             #recursive writer
             for root, dirs, files in os.walk(dir):
 
-                    # subtract the source file's root from the archive root - ie. make /Users/me/desktop/zipme.txt into just /zipme.txt 
+                    # subtract the source file's root from the archive root - ie. make /Users/me/desktop/zipme.txt into just /zipme.txt
                     archive_root = os.path.abspath(root)[root_len:]
 
                     for f in files:
@@ -248,28 +248,28 @@ class Compressor:
                             archive_name = os.path.join( archive_root, f )
                             zip.write( fullpath, archive_name, zipfile.ZIP_DEFLATED )
             zip.close()
-                   
+
    def _create_compressed_addon_release( self ):
        # create a zip of the addon into repo root directory, tagging it with '-x.x.x' release number scraped from addon.xml
        zipname = self.addon_name + '-' + self.addon_version_number + '.zip'
        zippath = os.path.join( repo_root, zipname )
 
        # zip full directories
-       self._recursive_zipper( self.addon_path , zippath ) 
+       self._recursive_zipper( self.addon_path , zippath )
 
        # now move the zip into the addon folder, which we will now treat as the 'addon release directory'
        os.rename( zippath, os.path.join( self.addon_path, zipname ) )
-      
+
        # in the addon release directory, delete every file apart from addon.xml, changelog, fanart, icon and the zip we just constructed. also rename changelog.
        for the_file in self.addon_folder_contents:
-           
+
               the_path = os.path.join( self.addon_path, the_file )
 
               # delete directories
               if not os.path.isfile( the_path ):
                       shutil.rmtree( the_path )
 
-              # list of files we specifically need to retain for the addon release folder (folder containing the zip                     
+              # list of files we specifically need to retain for the addon release folder (folder containing the zip
               elif not ( ('addon.xml' in the_file) or ('hangelog' in the_file) or ('fanart' in the_file) or ('icon' in the_file) or (zipname in the_file)):
                       os.remove( the_path )
 
@@ -277,20 +277,20 @@ class Compressor:
               elif 'hangelog' in the_file: # hangelog so that it is detected irrespective of whether C is capitalised
                        changelog = 'changelog-' + self.addon_version_number + '.txt'
                        os.rename( the_path, os.path.join( self.addon_path, changelog ) )
-    
+
    def _read_addon_xml( self ):
       # check for addon.xml and try and read it.
       addon_xml_path = os.path.join( self.addon_path, 'addon.xml' )
       if os.path.exists( addon_xml_path ):
-                         
+
                     # load whole text into string
-                    f = open( addon_xml_path, "r") 
+                    f = open( addon_xml_path, "r")
                     self.addon_xml = f.read()
                     f.close()
 
-                    # return True if we found and read the addon.xml 
+                    # return True if we found and read the addon.xml
                     return True
-      # return False if we couldn't  find the addon.xml 
+      # return False if we couldn't  find the addon.xml
       else: return False
 
    def _read_version_number( self ):
@@ -304,15 +304,15 @@ class Compressor:
                               # clean line of quotation characters so that it is easier to read.
                               header = re.sub( '"','', header )
                               header = re.sub( "'",'', header )
-                              
+
                               # scrape the version number from the line
                               self.addon_version_number = (( re.compile( "version\=(.+?) " , re.DOTALL ).findall( header ) )[0]).strip()
-              
+
 
 
 def execute():
     Compressor()
     Generator()
-    
-# standalone is equivalent of if name == main   
+
+# standalone is equivalent of if name == main
 if standalone: execute()
