@@ -1,2 +1,0 @@
-v2.0.1 27/4/19
-- Reparado fallo en url del wizard
