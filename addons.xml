@@ -89,7 +89,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.program.newwizardk" name="[COLOR red]TelewizarD[/COLOR]" version="3.1.6" provider-name="WizardK">
+<addon id="plugin.program.newwizardk" name="[COLOR red]TelewizarD[/COLOR]" version="3.1.7" provider-name="WizardK">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
