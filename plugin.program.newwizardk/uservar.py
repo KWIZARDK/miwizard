@@ -13,7 +13,7 @@ ART            = os.path.join(PATH, 'resources', 'art')
 ADDON_ID       = xbmcaddon.Addon().getAddonInfo('id')
 ADDONTITLE     = '[COLOR red]TelewizarD[/COLOR]'
 BUILDERNAME    = 'WHIZ'
-EXCLUDES       = [ADDON_ID, 'plugin.program.newwizardk']
+EXCLUDES       = [ADDON_ID, 'plugin.program.newwizardk', 'plugin.video.balandro']
 # Enable/Disable the text file caching with 'Yes' or 'No' and age being how often it rechecks in minutes
 CACHETEXT      = 'Yes'
 CACHEAGE       = 30
