@@ -1,0 +1,5 @@
+<favourites>
+	<favourite name="[COLOR yellow]Prime Video[/COLOR]" thumb="androidapp://sources/apps/com.amazon.avod.thirdpartyclient.png">StartAndroidActivity(&quot;com.amazon.avod.thirdpartyclient?sf_options=meta%3Dlabel%253DPrime%252BVideo%26_options_sf&quot;)</favourite>
+	<favourite name="[COLOR yellow]Netflix[/COLOR]" thumb="androidapp://sources/apps/com.netflix.mediaclient.png">StartAndroidActivity(&quot;com.netflix.mediaclient?sf_options=meta%3Dlabel%253DNetflix%26_options_sf&quot;)</favourite>
+	<favourite name="[COLOR yellow]Disney+[/COLOR]" thumb="androidapp://sources/apps/com.disney.disneyplus.png">StartAndroidActivity(&quot;com.disney.disneyplus?sf_options=meta%3Dlabel%253DDisney%25252B%26_options_sf&quot;)</favourite>
+</favourites>
