@@ -1,5 +1,4 @@
-[B][COLOR chartreuse]This file contains ALOT of useful information regarding the functionality of Super Favourites[CR]
-PLEASE READ IT!![/COLOR][/B]
+[B][COLOR chartreuse]Darte al boton de atras/cerrar[/COLOR][/B]
 
 
 [COLOR chartreuse]TelewizarD[/COLOR]
