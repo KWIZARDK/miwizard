@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.program.favoritos" name="Favoritos TelewizarD" version="1.0.0.9" provider-name="TelewizarD">
+<addon id="plugin.program.favoritos" name="Favoritos TelewizarD" version="1.0.0.10" provider-name="TelewizarD">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
     <import addon="script.module.metahandler" optional="true" />
